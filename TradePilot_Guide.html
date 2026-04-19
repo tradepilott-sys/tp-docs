@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TradePilot — Guide</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#08080C; color:#E8E8EC; font-family:'Segoe UI',sans-serif; font-size:14px; line-height:1.7; padding:40px 20px; }
+  .wrap { max-width:720px; margin:0 auto; }
+  h1 { color:#F97316; font-size:28px; letter-spacing:2px; margin-bottom:4px; }
+  .sub { color:#9898A8; font-size:13px; margin-bottom:30px; }
+  h2 { color:#F97316; font-size:18px; margin:32px 0 12px 0; padding-bottom:6px; border-bottom:1px solid rgba(80,80,100,0.4); }
+  h3 { color:#B0B0BC; font-size:15px; margin:20px 0 8px 0; }
+  p { margin:0 0 12px 0; }
+  .card { background:linear-gradient(180deg,rgba(32,32,45,0.96),rgba(14,14,22,0.91)); border:1px solid rgba(55,55,70,0.35); border-radius:12px; padding:16px 20px; margin:12px 0; }
+  .field { display:flex; gap:10px; align-items:flex-start; margin:8px 0; }
+  .fname { color:#F97316; font-weight:bold; min-width:140px; font-size:13px; }
+  .fdesc { color:#B0B0BC; font-size:13px; }
+  .tag { display:inline-block; padding:1px 8px; border-radius:10px; font-size:11px; font-weight:bold; margin-right:4px; }
+  .tag-green { background:rgba(16,185,129,0.15); color:#10B981; border:1px solid rgba(16,185,129,0.3); }
+  .tag-red { background:rgba(239,68,68,0.15); color:#EF4444; border:1px solid rgba(239,68,68,0.3); }
+  .tag-orange { background:rgba(249,115,22,0.15); color:#F97316; border:1px solid rgba(249,115,22,0.3); }
+  .tag-yellow { background:rgba(245,158,11,0.15); color:#F59E0B; border:1px solid rgba(245,158,11,0.3); }
+  code { background:#06060A; color:#F97316; padding:1px 6px; border-radius:4px; font-family:Consolas,monospace; font-size:12px; }
+  .warn { background:rgba(245,158,11,0.1); border-left:3px solid #F59E0B; padding:10px 14px; border-radius:0 8px 8px 0; margin:12px 0; color:#F59E0B; font-size:13px; }
+  .tip { background:rgba(16,185,129,0.1); border-left:3px solid #10B981; padding:10px 14px; border-radius:0 8px 8px 0; margin:12px 0; color:#10B981; font-size:13px; }
+  .risk { background:rgba(239,68,68,0.08); border-left:3px solid #EF4444; padding:10px 14px; border-radius:0 8px 8px 0; margin:12px 0; color:#EF4444; font-size:13px; }
+  a { color:#F97316; text-decoration:none; }
+  a:hover { text-decoration:underline; }
+  .tut-btn { display:inline-block; background:linear-gradient(135deg,#DC2626,#E11D48); color:#fff; padding:10px 24px; border-radius:8px; font-weight:bold; font-size:14px; margin:16px 0; text-decoration:none; }
+  .tut-btn:hover { opacity:0.9; text-decoration:none; }
+  .toc { margin:16px 0 30px 0; }
+  .toc a { color:#B0B0BC; display:block; padding:3px 0; font-size:13px; }
+  .toc a:hover { color:#F97316; }
+  .footer { margin-top:50px; padding-top:20px; border-top:1px solid rgba(80,80,100,0.4); color:#9898A8; font-size:12px; text-align:center; }
+  /* FAQ accordion */
+  .faq-item { border-bottom:1px solid rgba(55,55,70,0.25); }
+  .faq-q { width:100%; background:none; border:none; color:#E8E8EC; font-family:'Segoe UI',sans-serif; font-size:14px; font-weight:600; text-align:left; padding:16px 0; cursor:pointer; display:flex; justify-content:space-between; align-items:center; gap:12px; }
+  .faq-q:hover { color:#F97316; }
+  .faq-q .arrow { flex-shrink:0; font-size:16px; color:#6B6B7B; transition:transform 0.3s ease, color 0.2s; }
+  .faq-item.open .arrow { transform:rotate(45deg); color:#F97316; }
+  .faq-a { max-height:0; overflow:hidden; transition:max-height 0.35s ease; }
+  .faq-item.open .faq-a { max-height:400px; }
+  .faq-a p { font-size:13px; color:#B0B0BC; padding-bottom:16px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>TRADEPILOT</h1>
+<p class="sub">Bracket Automation for TopstepX — User Guide &amp; FAQ</p>
+
+<a href="https://www.youtube.com/playlist?list=PL25iVYBc6yJdBKgkHS4NrBIJbP_50VFiq" class="tut-btn" target="_blank">▶ Watch Quick Start Tutorial</a>
+
+<div class="toc">
+  <h3>Contents</h3>
+  <a href="#getting-started">1. Getting Started</a>
+  <a href="#presets">2. Presets</a>
+  <a href="#units">3. Ticks vs Points</a>
+  <a href="#take-profits">4. Take Profits</a>
+  <a href="#runner">5. Runner (Trailing Stop)</a>
+  <a href="#stop-loss">6. Stop Loss</a>
+  <a href="#sl-modes">7. SL Modes — Simple vs Smart</a>
+  <a href="#orders">8. Placing Orders</a>
+  <a href="#actions">9. Flatten & Emergency BE</a>
+  <a href="#header">10. Header Controls</a>
+  <a href="#troubleshooting">11. Troubleshooting</a>
+  <a href="#faq">12. FAQ</a>
+</div>
+
+<h2 id="getting-started">1. Getting Started</h2>
+<div class="card">
+  <p>Launch TradePilot and enter your <strong>TopstepX credentials</strong>:</p>
+  <div class="field"><span class="fname">Username</span><span class="fdesc">Your TopstepX email address</span></div>
+  <div class="field"><span class="fname">API Key</span><span class="fdesc">From <code>dashboard.projectx.com → Settings → API</code></span></div>
+  <p>Click <strong>CONNECT</strong> to authenticate. Select your account (Practice or Live) and click <strong>START</strong>.</p>
+  <div class="warn">⚠ Always test on a Practice account first. TradePilot places real orders.</div>
+  <p><strong>DRY RUN</strong> mode lets you explore the interface without connecting to TopstepX. No orders are placed.</p>
+</div>
+
+<h2 id="presets">2. Presets</h2>
+<div class="card">
+  <p>Presets save your entire bracket configuration — stop loss, take profits, SL mode, runner settings, and unit mode.</p>
+  <div class="field"><span class="fname">Preset Dropdown</span><span class="fdesc">Select a saved preset to load its settings</span></div>
+  <div class="field"><span class="fname">A-Z / ⏱ Sort</span><span class="fdesc">Toggle between alphabetical and recently-used sorting</span></div>
+  <div class="field"><span class="fname">Name</span><span class="fdesc">Type a name and click Save to create or update a preset</span></div>
+  <div class="field"><span class="fname">Save</span><span class="fdesc">Saves all current settings under the entered name</span></div>
+  <div class="field"><span class="fname">Del</span><span class="fdesc">Deletes the currently selected preset (asks for confirmation)</span></div>
+  <div class="tip">💡 Create separate presets for different instruments — e.g. "NQ Scalp", "ES Swing"</div>
+</div>
+
+<h2 id="units">3. Ticks vs Points</h2>
+<div class="card">
+  <p>Toggle between <span class="tag tag-orange">TICKS</span> and <span class="tag tag-orange">POINTS</span> to set how values are interpreted.</p>
+  <div class="field"><span class="fname">Ticks</span><span class="fdesc">Minimum price increment. NQ: 1 tick = 0.25 points. ES: 1 tick = 0.25 points.</span></div>
+  <div class="field"><span class="fname">Points</span><span class="fdesc">Full price units. NQ: 1 point = 4 ticks. ES: 1 point = 4 ticks.</span></div>
+  <p>The info label below the toggle shows the conversion: e.g. <code>tick=0.25  1pt=4tk</code></p>
+  <div class="warn">⚠ Points mode on non-index futures (CL, GC) may give unexpected values. Use Ticks mode for these instruments.</div>
+</div>
+
+<h2 id="take-profits">4. Take Profits</h2>
+<div class="card">
+  <p>Each TP level has a <strong>distance</strong> (in ticks or points) and a <strong>contract count</strong>.</p>
+  <div class="field"><span class="fname">TP1, TP2, TP3...</span><span class="fdesc">Take profit levels. Distance is from your entry price.</span></div>
+  <div class="field"><span class="fname">× contracts</span><span class="fdesc">How many contracts close at this TP level</span></div>
+  <div class="field"><span class="fname">+ / −</span><span class="fdesc">Add or remove TP levels (minimum 1)</span></div>
+  <div class="field"><span class="fname">Total ct</span><span class="fdesc">Sum of all TP contracts — this is your entry order size</span></div>
+  <p><strong>Example:</strong> TP1 = 12 ticks × 2 ct, TP2 = 24 ticks × 1 ct, TP3 = 48 ticks × 1 ct = 4 contracts total entry.</p>
+</div>
+
+<h2 id="runner">5. Runner (Trailing Stop)</h2>
+<div class="card">
+  <p>The Runner converts your <strong>last TP</strong> into a trailing stop. Instead of closing at a fixed price, it follows the market and locks in profit as price moves in your favor.</p>
+  <div class="field"><span class="fname">● Runner</span><span class="fdesc">Click to enable/disable. Green dot = active, grey = off.</span></div>
+  <div class="field"><span class="fname">Trail</span><span class="fdesc">How far behind the highest price the stop follows. Smaller = tighter trail, locks profit faster but may get stopped out on pullbacks.</span></div>
+  <div class="field"><span class="fname">Every ___ seconds</span><span class="fdesc">How often the runner checks for a new high to move the trailing stop. Lower = more responsive but uses more API calls. Minimum 1 second.</span></div>
+  <div class="warn">⚠ When Runner is enabled, the last TP's distance is ignored — only its contract count is used. The stop trails instead of taking profit at a fixed level.</div>
+  <div class="tip">💡 A good starting trail for NQ is 10-20 ticks. For ES, 8-16 ticks. Adjust based on your timeframe.</div>
+</div>
+
+<h2 id="stop-loss">6. Stop Loss</h2>
+<div class="card">
+  <p>The stop loss distance from your entry price. Applied to ALL contracts in the bracket.</p>
+  <div class="field"><span class="fname">Stop Loss</span><span class="fdesc">Distance in ticks or points. Must be a positive number.</span></div>
+  <p>The stop is placed as a STOP order immediately after your entry fills. If the exchange rejects the stop (e.g. velocity controls), TradePilot immediately executes an emergency market close — you won't be left with an unprotected position.</p>
+</div>
+
+<h2 id="sl-modes">7. SL Modes — Simple vs Smart</h2>
+<div class="card">
+  <h3><span class="tag tag-orange">Simple</span></h3>
+  <p>Moves the stop loss to <strong>breakeven</strong> (your entry price + offset) after a set number of TPs fill.</p>
+  <div class="field"><span class="fname">BE after TP</span><span class="fdesc">How many TPs must fill before the stop moves to breakeven. Example: "2" means after TP1 and TP2 fill.</span></div>
+  <div class="field"><span class="fname">Offset</span><span class="fdesc">Extra ticks added above/below breakeven to cover commissions and fees. 0 = exact entry price. 2 = entry + 2 ticks of profit locked in.</span></div>
+
+  <h3><span class="tag tag-orange">Smart</span></h3>
+  <p>Same as Simple for the first move (breakeven + offset), then <strong>steps the stop loss to each previous TP price</strong> as subsequent TPs fill.</p>
+  <p><strong>Example:</strong> TP1 fills → nothing happens. TP2 fills → SL moves to breakeven + offset. TP3 fills → SL moves to TP2's price (no offset on steps, only on initial BE).</p>
+  <div class="tip">💡 Smart mode lets you lock in progressively more profit as each TP fills, without manual intervention.</div>
+</div>
+
+<h2 id="orders">8. Placing Orders</h2>
+<div class="card">
+  <h3>Limit Orders</h3>
+  <div class="field"><span class="fname">OFFSET / PRICE</span><span class="fdesc">Toggle between offset mode (distance from market) and direct price mode</span></div>
+  <div class="field"><span class="fname">Input field</span><span class="fdesc">In OFFSET mode: ticks/points below market (buy) or above market (sell). In PRICE mode: exact limit price.</span></div>
+  <p><span class="tag tag-green">LIMIT BUY</span> places a buy limit order below the current market price.</p>
+  <p><span class="tag tag-red">LIMIT SELL</span> places a sell limit order above the current market price.</p>
+
+  <h3>Market Orders</h3>
+  <p><span class="tag tag-green">MARKET BUY</span> and <span class="tag tag-red">MARKET SELL</span> execute immediately at the current market price.</p>
+  <div class="warn">⚠ There is a 2-second cooldown between order clicks to prevent accidental double orders.</div>
+  <div class="tip">💡 Right-click the offset/price field to paste from clipboard (auto-validates numeric input).</div>
+</div>
+
+<h2 id="actions">9. Flatten & Emergency BE</h2>
+<div class="card">
+  <div class="field"><span class="fname">FLATTEN ALL</span><span class="fdesc">Cancels ALL open orders, then closes ALL open positions with market orders. Use in emergencies.</span></div>
+  <div class="field"><span class="fname">⚡ EMERGENCY BE</span><span class="fdesc">Moves ALL active stop losses to breakeven immediately, regardless of how many TPs have filled.</span></div>
+  <div class="warn">⚠ FLATTEN ALL is irreversible — it closes everything. A confirmation dialog + 5-second cooldown prevents accidental clicks.</div>
+</div>
+
+<h2 id="header">10. Header Controls</h2>
+<div class="card">
+  <div class="field"><span class="fname">● Status Dot</span><span class="fdesc">Green = healthy (&lt;300ms latency). Yellow = slow (300-2000ms) or rate limited. Red = very slow (&gt;2000ms) or connection lost.</span></div>
+  <div class="field"><span class="fname">ON / OFF</span><span class="fdesc">Enable or disable bracket automation. When OFF, no orders are placed or managed.</span></div>
+  <div class="field"><span class="fname">📌 Pin</span><span class="fdesc">Toggle always-on-top. Orange = pinned, grey = unpinned.</span></div>
+  <div class="field"><span class="fname">? Help</span><span class="fdesc">Opens this documentation page.</span></div>
+  <div class="field"><span class="fname">ℹ Tooltips</span><span class="fdesc">Toggle hover tooltips on/off throughout the app.</span></div>
+</div>
+
+<h2 id="troubleshooting">11. Troubleshooting</h2>
+<div class="card">
+  <h3>Connection Lost Banner</h3>
+  <p>If the red "Connection lost" banner appears, TradePilot cannot reach the TopstepX API. It will automatically retry. If it persists for more than 30 seconds, restart TradePilot.</p>
+
+  <h3>Status Dot Yellow</h3>
+  <p>This may indicate rate limiting. TradePilot automatically enters degraded mode to recover. Avoid placing rapid orders during this time.</p>
+
+  <h3>Order Blocked</h3>
+  <p>TradePilot blocks opposite-direction orders on the same contract (e.g. buying while a sell bracket is active). Close the existing bracket first.</p>
+
+  <h3>Debug Log</h3>
+  <p>Detailed logs are saved to <code>~/.tradepilot/tradepilot_debug.log</code>. Click the 🐛 button to send the last 100 lines to the dev team (credentials are automatically stripped).</p>
+
+  <h3>Config Location</h3>
+  <p>Your settings are stored in <code>~/.tradepilot/config.json</code>. This persists across updates. If you need a fresh start, delete the <code>~/.tradepilot/</code> folder.</p>
+</div>
+
+<h2 id="faq">12. Frequently Asked Questions</h2>
+<div class="card" style="padding:4px 20px;">
+  <div class="faq-item">
+    <button class="faq-q">What platforms does TradePilot work with?<span class="arrow">+</span></button>
+    <div class="faq-a"><p>TradePilot works exclusively with <strong>TopstepX</strong> (the ProjectX / TopstepX API). It does not work with NinjaTrader, Tradovate, Rithmic, or other platforms. You need a TopstepX account with API access enabled.</p></div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q">What operating system do I need?<span class="arrow">+</span></button>
+    <div class="faq-a"><p><strong>Windows 10 or 11</strong> is required. TradePilot is a native Windows desktop app. macOS and Linux are not currently supported.</p></div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q">How do I get my TopstepX API key?<span class="arrow">+</span></button>
+    <div class="faq-a"><p>Log in to <strong>dashboard.projectx.com</strong>, go to <strong>Settings → API</strong>, and generate or copy your API key. You'll also need your TopstepX username (the one you log in with).</p></div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q">Can I use TradePilot on a practice account?<span class="arrow">+</span></button>
+    <div class="faq-a"><p>Yes, and we strongly recommend it. When you log in, TradePilot shows all your accounts. Pick your practice/sim account to test everything before going live. The app highlights practice vs live accounts automatically.</p></div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q">What does the Runner do?<span class="arrow">+</span></button>
+    <div class="faq-a"><p>The Runner converts your last take profit level into a trailing stop. Instead of closing at a fixed price, it follows the market and locks in profit as price moves in your favor. You set the trail distance and poll frequency. Great for catching big moves without giving back too much.</p></div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q">What happens if my internet drops mid-trade?<span class="arrow">+</span></button>
+    <div class="faq-a"><p>Your stop loss and take profit orders live on the TopstepX exchange — they don't depend on TradePilot staying connected. If your internet drops, your exits will execute normally. The trailing runner and SL step-ups after TP fills won't work during a disconnect, but your core protection remains.</p></div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q">What's the difference between Simple and Smart SL modes?<span class="arrow">+</span></button>
+    <div class="faq-a"><p><strong>Simple:</strong> After X take profits fill, your stop moves to breakeven (plus optional offset for fees). <strong>Smart:</strong> Same breakeven trigger, but then the stop keeps stepping up to the previous TP price each time a new TP fills — locking in more profit progressively.</p></div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q">Can I trade multiple instruments at the same time?<span class="arrow">+</span></button>
+    <div class="faq-a"><p>You select one instrument at a time. Existing brackets on a previous instrument continue to be managed if you switch. For actively trading two instruments simultaneously, run two instances of TradePilot.</p></div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q">What does FLATTEN ALL do?<span class="arrow">+</span></button>
+    <div class="faq-a"><p>It cancels every open order on your account and closes all open positions with market orders. It asks for confirmation first and has a 5-second cooldown to prevent accidental double-clicks.</p></div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q">What happens if the exchange rejects my stop loss?<span class="arrow">+</span></button>
+    <div class="faq-a"><p>If the exchange blocks the stop loss (e.g. velocity controls), TradePilot immediately executes an emergency market close to flatten your position. You won't be left unprotected.</p></div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q">Is my API key stored securely?<span class="arrow">+</span></button>
+    <div class="faq-a"><p>Your TopstepX credentials are stored locally on your computer at <code>~/.tradepilot/config.json</code>. They are never sent anywhere except directly to the TopstepX API. Your Whop license key is validated through a secure proxy — no API keys ship inside the app.</p></div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q">Can I cancel my subscription?<span class="arrow">+</span></button>
+    <div class="faq-a"><p>Yes, cancel anytime from your Whop dashboard. Your access continues until the end of your billing period. After that, TradePilot will ask for a new license key on the next launch.</p></div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q">Does TradePilot work with funded accounts?<span class="arrow">+</span></button>
+    <div class="faq-a"><p>Yes. TradePilot works with any TopstepX account that has API access — practice, evaluation, or funded. Just select the correct account after logging in.</p></div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q">How do I report a bug?<span class="arrow">+</span></button>
+    <div class="faq-a"><p>Click the 🐛 icon at the bottom of the app. Describe the issue, and TradePilot automatically attaches your recent log lines (with credentials stripped) and sends the report to the dev team.</p></div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q">How do updates work?<span class="arrow">+</span></button>
+    <div class="faq-a"><p>TradePilot checks for updates on launch. If a new version is available, you'll see a popup with a download link. Critical updates may require you to update before continuing to trade. Your presets and settings carry over automatically.</p></div>
+  </div>
+</div>
+
+<div class="risk">⚠ <strong>Risk Disclaimer:</strong> TradePilot is a technical automation tool — not financial advice. Futures trading involves substantial risk of loss. You are fully responsible for your own trading decisions. Always test on a practice account first.</div>
+
+<div style="text-align:center;margin:30px 0;">
+  <a href="https://www.youtube.com/playlist?list=PL25iVYBc6yJdBKgkHS4NrBIJbP_50VFiq" class="tut-btn" target="_blank">▶ Watch Quick Start Tutorial</a>
+</div>
+
+<div class="footer">
+  TradePilot v1.11 — Bracket Automation for TopstepX<br>
+  &copy; 2026 TradePilot. All rights reserved.
+</div>
+
+</div>
+<script>
+document.querySelectorAll('.faq-q').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.parentElement;
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  });
+});
+</script>
+</body>
+</html>
