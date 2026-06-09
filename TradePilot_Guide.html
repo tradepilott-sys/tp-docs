@@ -22,6 +22,7 @@
   .tag-red { background:rgba(239,68,68,0.15); color:#EF4444; border:1px solid rgba(239,68,68,0.3); }
   .tag-orange { background:rgba(249,115,22,0.15); color:#F97316; border:1px solid rgba(249,115,22,0.3); }
   .tag-yellow { background:rgba(245,158,11,0.15); color:#F59E0B; border:1px solid rgba(245,158,11,0.3); }
+  .tag-new { background:rgba(16,185,129,0.2); color:#10B981; border:1px solid rgba(16,185,129,0.5); font-weight:700; }
   code { background:#06060A; color:#F97316; padding:1px 6px; border-radius:4px; font-family:Consolas,monospace; font-size:12px; }
   .warn { background:rgba(245,158,11,0.1); border-left:3px solid #F59E0B; padding:10px 14px; border-radius:0 8px 8px 0; margin:12px 0; color:#F59E0B; font-size:13px; }
   .tip { background:rgba(16,185,129,0.1); border-left:3px solid #10B981; padding:10px 14px; border-radius:0 8px 8px 0; margin:12px 0; color:#10B981; font-size:13px; }
@@ -34,24 +35,106 @@
   .toc a { color:#B0B0BC; display:block; padding:3px 0; font-size:13px; }
   .toc a:hover { color:#F97316; }
   .footer { margin-top:50px; padding-top:20px; border-top:1px solid rgba(80,80,100,0.4); color:#9898A8; font-size:12px; text-align:center; }
-  /* FAQ accordion */
+  /* Accordion (reused for both Whats-New and FAQ) */
   .faq-item { border-bottom:1px solid rgba(55,55,70,0.25); }
   .faq-q { width:100%; background:none; border:none; color:#E8E8EC; font-family:'Segoe UI',sans-serif; font-size:14px; font-weight:600; text-align:left; padding:16px 0; cursor:pointer; display:flex; justify-content:space-between; align-items:center; gap:12px; }
   .faq-q:hover { color:#F97316; }
   .faq-q .arrow { flex-shrink:0; font-size:16px; color:#6B6B7B; transition:transform 0.3s ease, color 0.2s; }
   .faq-item.open .arrow { transform:rotate(45deg); color:#F97316; }
-  .faq-a { max-height:0; overflow:hidden; transition:max-height 0.35s ease; }
-  .faq-item.open .faq-a { max-height:400px; }
+  .faq-a { max-height:0; overflow:hidden; transition:max-height 0.45s ease; }
+  .faq-item.open .faq-a { max-height:800px; }
   .faq-a p { font-size:13px; color:#B0B0BC; padding-bottom:16px; }
+  .faq-a ul { margin:0 0 16px 0; padding-left:22px; color:#B0B0BC; font-size:13px; }
+  .faq-a ul li { margin-bottom:6px; }
+  .ver-banner { background:linear-gradient(135deg,rgba(16,185,129,0.2),rgba(16,185,129,0.05)); border:1px solid rgba(16,185,129,0.4); border-radius:10px; padding:14px 18px; margin:18px 0; }
+  .ver-banner .vtitle { color:#10B981; font-weight:700; font-size:15px; margin-bottom:4px; }
+  .ver-banner .vsub { color:#B0B0BC; font-size:13px; }
 </style>
 </head>
 <body>
 <div class="wrap">
 
 <h1>TRADEPILOT</h1>
-<p class="sub">Bracket Automation for TopstepX — User Guide &amp; FAQ</p>
+<p class="sub">Bracket Automation for TopstepX — User Guide &amp; FAQ — v1.12</p>
 
 <a href="https://www.youtube.com/playlist?list=PL25iVYBc6yJdBKgkHS4NrBIJbP_50VFiq" class="tut-btn" target="_blank">▶ Watch Quick Start Tutorial</a>
+
+<div class="ver-banner">
+  <div class="vtitle">🎉 What's New in v1.12</div>
+  <div class="vsub">Stop orders, Trigger SL mode, faster Flatten All, critical alerts, slippage logging, and more. Tap any item below for details.</div>
+</div>
+
+<div class="card" style="padding:4px 20px;">
+  <div class="faq-item">
+    <button class="faq-q"><span><span class="tag tag-new">NEW</span> Stop Order tab (Market &amp; Limit)</span><span class="arrow">+</span></button>
+    <div class="faq-a">
+      <p>A third tab beside Standard and Conditional. Place breakout entries that fire when price <strong>touches</strong> your trigger level (industry-standard intra-tick behaviour — matches Topstep, NinjaTrader, IB, CME native stops).</p>
+      <ul>
+        <li><strong>Stop-Market:</strong> fires a market order when price crosses your trigger. Guaranteed fill, some slippage possible.</li>
+        <li><strong>Stop-Limit:</strong> fires a limit order at trigger ± your offset. Price guaranteed, fill not guaranteed.</li>
+        <li><strong>Buy Stop:</strong> trigger must be ABOVE current market.</li>
+        <li><strong>Sell Stop:</strong> trigger must be BELOW current market.</li>
+        <li>SL and TPs attach automatically on fill, just like any other entry.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q"><span><span class="tag tag-new">NEW</span> Trigger SL mode</span><span class="arrow">+</span></button>
+    <div class="faq-a">
+      <p>A third SL mode (alongside Simple and Smart) that moves your stop loss based on <strong>price distance from entry</strong>, not TP fills.</p>
+      <ul>
+        <li>Example: "When price travels +36 ticks from entry → move SL to entry + 2 ticks."</li>
+        <li>Uses the master TICKS/POINTS unit selector.</li>
+        <li>Optional <strong>Smart after TP</strong> checkbox: after the trigger fires AND your chosen TP fills, the SL also follows Smart-style stepping (step to previous TP price on each subsequent fill).</li>
+        <li>Solves the classic "lock BE at +X ticks regardless of TPs" workflow that's common with Topstep / prop-firm traders.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q"><span><span class="tag tag-new">NEW</span> Conditional Market/Limit toggle</span><span class="arrow">+</span></button>
+    <div class="faq-a">
+      <p>The Conditional Order tab now has a Type selector. Limit (original behaviour) places a limit at the trigger on candle close. <strong>Market</strong> places a market order on candle close — useful for breakouts where guaranteed fill matters more than exact price.</p>
+    </div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q"><span><span class="tag tag-new">NEW</span> Critical alerts (popup + beep + Discord)</span><span class="arrow">+</span></button>
+    <div class="faq-a">
+      <p>If a safety-critical operation fails after retries — such as moving your SL to breakeven, or placing the initial SL — you'll get all three at once:</p>
+      <ul>
+        <li>🚨 Modal popup that stays on top until you dismiss it</li>
+        <li>System beep</li>
+        <li>Discord webhook ping (also forwarded to the dev team if persistent)</li>
+      </ul>
+      <p>Normal trades are silent. Alerts only fire on real failures so you never miss a position that's been left unprotected.</p>
+    </div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q"><span><span class="tag tag-new">NEW</span> Slippage logging for triggered entries</span><span class="arrow">+</span></button>
+    <div class="faq-a">
+      <p>When a Stop or Conditional entry fires, the log now shows realised slippage in this format:</p>
+      <p><code>SLIPPAGE [STOP-MARKET] #12345: trigger 20000.00 → fill 20002.50 (+10.0 ticks, worse)</code></p>
+      <p>Positive ticks = worse than trigger (paid more on buy, got less on sell). Negative = better fill. <code>exact</code> = no slippage. Useful for measuring fast vs slow market behaviour over time.</p>
+    </div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q"><span><span class="tag tag-new">NEW</span> Faster Flatten All (parallel execution)</span><span class="arrow">+</span></button>
+    <div class="faq-a">
+      <p>Flatten All used to cancel orders sequentially before sending the market close — typically 2-3 seconds while price moved against you. Now the market close fires in parallel with the order cancels, so the position usually closes within ~300ms of clicking. Critical for prop traders bleeding profit on slow flattens.</p>
+    </div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q"><span><span class="tag tag-new">NEW</span> Last instrument &amp; window position remembered</span><span class="arrow">+</span></button>
+    <div class="faq-a">
+      <p>The last instrument you traded is restored automatically on next launch (matched by contract ID — survives Topstep's monthly contract roll). The window's position and size are also restored, with a guard against restoring to a monitor that has since been disconnected.</p>
+    </div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q"><span><span class="tag tag-new">NEW</span> Improved TP layout (up to 6 in main UI + dialog for more)</span><span class="arrow">+</span></button>
+    <div class="faq-a">
+      <p>Take Profits are arranged in two columns of three (TP1-3 col 1, TP4-6 col 2). If you need more than 6 levels, an Advanced TP Setup dialog opens for the extras — keeps the main UI compact so FLATTEN ALL and EMERGENCY BE stay visible at all times.</p>
+    </div>
+  </div>
+</div>
 
 <div class="toc">
   <h3>Contents</h3>
@@ -61,12 +144,13 @@
   <a href="#take-profits">4. Take Profits</a>
   <a href="#runner">5. Runner (Trailing Stop)</a>
   <a href="#stop-loss">6. Stop Loss</a>
-  <a href="#sl-modes">7. SL Modes — Simple vs Smart</a>
-  <a href="#orders">8. Placing Orders</a>
-  <a href="#actions">9. Flatten & Emergency BE</a>
-  <a href="#header">10. Header Controls</a>
-  <a href="#troubleshooting">11. Troubleshooting</a>
-  <a href="#faq">12. FAQ</a>
+  <a href="#sl-modes">7. SL Modes — Simple, Smart, Trigger</a>
+  <a href="#orders">8. Placing Orders — Standard, Conditional, Stop</a>
+  <a href="#alerts">9. Critical Alerts</a>
+  <a href="#actions">10. Flatten &amp; Emergency BE</a>
+  <a href="#header">11. Header Controls</a>
+  <a href="#troubleshooting">12. Troubleshooting</a>
+  <a href="#faq">13. FAQ</a>
 </div>
 
 <h2 id="getting-started">1. Getting Started</h2>
@@ -81,86 +165,118 @@
 
 <h2 id="presets">2. Presets</h2>
 <div class="card">
-  <p>Presets save your entire bracket configuration — stop loss, take profits, SL mode, runner settings, and unit mode.</p>
+  <p>Presets save your entire bracket configuration — stop loss, take profits, SL mode (including Trigger settings), runner settings, unit mode, conditional &amp; stop tab inputs.</p>
   <div class="field"><span class="fname">Preset Dropdown</span><span class="fdesc">Select a saved preset to load its settings</span></div>
-  <div class="field"><span class="fname">A-Z / ⏱ Sort</span><span class="fdesc">Toggle between alphabetical and recently-used sorting</span></div>
-  <div class="field"><span class="fname">Name</span><span class="fdesc">Type a name and click Save to create or update a preset</span></div>
-  <div class="field"><span class="fname">Save</span><span class="fdesc">Saves all current settings under the entered name</span></div>
-  <div class="field"><span class="fname">Del</span><span class="fdesc">Deletes the currently selected preset (asks for confirmation)</span></div>
-  <div class="tip">💡 Create separate presets for different instruments — e.g. "NQ Scalp", "ES Swing"</div>
+  <div class="field"><span class="fname">Name Field</span><span class="fdesc">Type a new name to save as a new preset</span></div>
+  <div class="field"><span class="fname">💾 Save</span><span class="fdesc">Save current settings to the named preset</span></div>
+  <div class="field"><span class="fname">🗑 Del</span><span class="fdesc">Delete the active preset (requires confirmation)</span></div>
+  <div class="field"><span class="fname">A-Z / Recent</span><span class="fdesc">Toggle the dropdown sort order</span></div>
+  <div class="tip">💡 The last instrument you used is also restored on next launch.</div>
 </div>
 
 <h2 id="units">3. Ticks vs Points</h2>
 <div class="card">
-  <p>Toggle between <span class="tag tag-orange">TICKS</span> and <span class="tag tag-orange">POINTS</span> to set how values are interpreted.</p>
-  <div class="field"><span class="fname">Ticks</span><span class="fdesc">Minimum price increment. NQ: 1 tick = 0.25 points. ES: 1 tick = 0.25 points.</span></div>
-  <div class="field"><span class="fname">Points</span><span class="fdesc">Full price units. NQ: 1 point = 4 ticks. ES: 1 point = 4 ticks.</span></div>
-  <p>The info label below the toggle shows the conversion: e.g. <code>tick=0.25  1pt=4tk</code></p>
-  <div class="warn">⚠ Points mode on non-index futures (CL, GC) may give unexpected values. Use Ticks mode for these instruments.</div>
+  <p>The <strong>TICKS / POINTS</strong> toggle at the top of the preset card sets the master unit for stop loss, take profits, runner trail, and the Trigger SL value.</p>
+  <p>The conversion uses the current contract's tick size. For NQ futures, <code>1 point = 4 ticks (tick size 0.25)</code>; for ES, <code>1 point = 4 ticks (tick size 0.25)</code>.</p>
+  <div class="tip">💡 Switching the toggle automatically converts the displayed values — your underlying SL/TP prices stay the same.</div>
 </div>
 
 <h2 id="take-profits">4. Take Profits</h2>
 <div class="card">
-  <p>Each TP level has a <strong>distance</strong> (in ticks or points) and a <strong>contract count</strong>.</p>
-  <div class="field"><span class="fname">TP1, TP2, TP3...</span><span class="fdesc">Take profit levels. Distance is from your entry price.</span></div>
-  <div class="field"><span class="fname">× contracts</span><span class="fdesc">How many contracts close at this TP level</span></div>
-  <div class="field"><span class="fname">+ / −</span><span class="fdesc">Add or remove TP levels (minimum 1)</span></div>
-  <div class="field"><span class="fname">Total ct</span><span class="fdesc">Sum of all TP contracts — this is your entry order size</span></div>
-  <p><strong>Example:</strong> TP1 = 12 ticks × 2 ct, TP2 = 24 ticks × 1 ct, TP3 = 48 ticks × 1 ct = 4 contracts total entry.</p>
+  <p>Add up to <strong>6 take-profit levels in the main UI</strong> (two columns of three). For more levels, the <strong>Advanced TP Setup</strong> dialog opens — useful for scalpers who run very wide ladders.</p>
+  <div class="field"><span class="fname">+ / − buttons</span><span class="fdesc">Add or remove TP levels. The 7th + opens the Advanced TP dialog.</span></div>
+  <div class="field"><span class="fname">TP Distance</span><span class="fdesc">How far from entry the TP sits, in the master unit (ticks or points)</span></div>
+  <div class="field"><span class="fname">Contracts (ct)</span><span class="fdesc">How many contracts to close at this TP level</span></div>
+  <div class="field"><span class="fname">Total ct</span><span class="fdesc">Sum of all TP contracts — this is the order size when placing entries</span></div>
+  <div class="warn">⚠ Total contracts must match what you intend to buy/sell. Setting a TP without contracts is a no-op.</div>
 </div>
 
 <h2 id="runner">5. Runner (Trailing Stop)</h2>
 <div class="card">
-  <p>The Runner converts your <strong>last TP</strong> into a trailing stop. Instead of closing at a fixed price, it follows the market and locks in profit as price moves in your favor.</p>
-  <div class="field"><span class="fname">● Runner</span><span class="fdesc">Click to enable/disable. Green dot = active, grey = off.</span></div>
-  <div class="field"><span class="fname">Trail</span><span class="fdesc">How far behind the highest price the stop follows. Smaller = tighter trail, locks profit faster but may get stopped out on pullbacks.</span></div>
-  <div class="field"><span class="fname">Every ___ seconds</span><span class="fdesc">How often the runner checks for a new high to move the trailing stop. Lower = more responsive but uses more API calls. Minimum 1 second.</span></div>
-  <div class="warn">⚠ When Runner is enabled, the last TP's distance is ignored — only its contract count is used. The stop trails instead of taking profit at a fixed level.</div>
-  <div class="tip">💡 A good starting trail for NQ is 10-20 ticks. For ES, 8-16 ticks. Adjust based on your timeframe.</div>
+  <p>The <strong>Runner</strong> converts your <em>last</em> TP into a trailing stop instead of a fixed-price exit. Useful when you want to ride extended moves without giving back too much.</p>
+  <div class="field"><span class="fname">● Runner</span><span class="fdesc">Click to enable. The last TP becomes a trailing stop.</span></div>
+  <div class="field"><span class="fname">Trail (pts/ticks)</span><span class="fdesc">Distance the stop follows behind the highest favourable price</span></div>
+  <div class="field"><span class="fname">Every (sec)</span><span class="fdesc">How often the runner checks for a new high (minimum 1 second)</span></div>
+  <div class="tip">💡 Runner needs network connectivity to track price. If your internet drops, the runner pauses but your fixed SL still protects you.</div>
 </div>
 
 <h2 id="stop-loss">6. Stop Loss</h2>
 <div class="card">
-  <p>The stop loss distance from your entry price. Applied to ALL contracts in the bracket.</p>
-  <div class="field"><span class="fname">Stop Loss</span><span class="fdesc">Distance in ticks or points. Must be a positive number.</span></div>
-  <p>The stop is placed as a STOP order immediately after your entry fills. If the exchange rejects the stop (e.g. velocity controls), TradePilot immediately executes an emergency market close — you won't be left with an unprotected position.</p>
+  <p>The <strong>STOP LOSS</strong> field sets the distance from entry at which the protective stop sits. The value is in the master unit (ticks or points).</p>
+  <p>TradePilot uses a single shared SL per contract+side (one SL covers all open contracts in that direction). This is intentional for rate-limit efficiency. To stagger SL behaviour, use <strong>Smart</strong> mode with multiple TPs — the SL tightens as TPs fill.</p>
 </div>
 
-<h2 id="sl-modes">7. SL Modes — Simple vs Smart</h2>
+<h2 id="sl-modes">7. SL Modes — Simple, Smart, Trigger</h2>
 <div class="card">
-  <h3><span class="tag tag-orange">Simple</span></h3>
-  <p>Moves the stop loss to <strong>breakeven</strong> (your entry price + offset) after a set number of TPs fill.</p>
-  <div class="field"><span class="fname">BE after TP</span><span class="fdesc">How many TPs must fill before the stop moves to breakeven. Example: "2" means after TP1 and TP2 fill.</span></div>
-  <div class="field"><span class="fname">Offset</span><span class="fdesc">Extra ticks added above/below breakeven to cover commissions and fees. 0 = exact entry price. 2 = entry + 2 ticks of profit locked in.</span></div>
+  <h3>Simple</h3>
+  <p>After <strong>N take profits</strong> fill (you choose N), the SL moves to breakeven plus your offset. Stays there for the rest of the trade.</p>
 
-  <h3><span class="tag tag-orange">Smart</span></h3>
-  <p>Same as Simple for the first move (breakeven + offset), then <strong>steps the stop loss to each previous TP price</strong> as subsequent TPs fill.</p>
-  <p><strong>Example:</strong> TP1 fills → nothing happens. TP2 fills → SL moves to breakeven + offset. TP3 fills → SL moves to TP2's price (no offset on steps, only on initial BE).</p>
-  <div class="tip">💡 Smart mode lets you lock in progressively more profit as each TP fills, without manual intervention.</div>
+  <h3>Smart</h3>
+  <p>Same BE trigger as Simple, but then keeps stepping. Each subsequent TP fill moves the SL to the <em>previous</em> TP's fill price — locking in more profit progressively.</p>
+
+  <h3 style="color:#10B981;">Trigger <span class="tag tag-new">NEW in v1.12</span></h3>
+  <p>SL moves when <strong>price travels a specified distance from entry</strong>, independent of TPs.</p>
+  <ul style="color:#B0B0BC;font-size:13px;margin-left:22px;">
+    <li><strong>Trigger:</strong> distance from entry (in your master unit) that fires the SL move. Example: 36 ticks.</li>
+    <li><strong>Offset:</strong> where the SL settles when fired (entry + offset). Example: 2 ticks past entry = small fee buffer.</li>
+    <li><strong>Smart after TP (optional):</strong> after the trigger fires AND the chosen TP fills, SL also follows Smart-style stepping for subsequent fills.</li>
+  </ul>
+  <div class="tip">💡 Trigger fires once per trade. The SL never moves backward once locked in.</div>
 </div>
 
-<h2 id="orders">8. Placing Orders</h2>
-<div class="card">
-  <h3>Limit Orders</h3>
-  <div class="field"><span class="fname">OFFSET / PRICE</span><span class="fdesc">Toggle between offset mode (distance from market) and direct price mode</span></div>
-  <div class="field"><span class="fname">Input field</span><span class="fdesc">In OFFSET mode: ticks/points below market (buy) or above market (sell). In PRICE mode: exact limit price.</span></div>
-  <p><span class="tag tag-green">LIMIT BUY</span> places a buy limit order below the current market price.</p>
-  <p><span class="tag tag-red">LIMIT SELL</span> places a sell limit order above the current market price.</p>
+<h2 id="orders">8. Placing Orders — Standard, Conditional, Stop</h2>
 
-  <h3>Market Orders</h3>
-  <p><span class="tag tag-green">MARKET BUY</span> and <span class="tag tag-red">MARKET SELL</span> execute immediately at the current market price.</p>
-  <div class="warn">⚠ There is a 2-second cooldown between order clicks to prevent accidental double orders.</div>
-  <div class="tip">💡 Right-click the offset/price field to paste from clipboard (auto-validates numeric input).</div>
+<div class="card">
+  <h3>Standard tab</h3>
+  <p>Direct limit or market entries.</p>
+  <div class="field"><span class="fname">OFFSET / PRICE</span><span class="fdesc">OFFSET = distance from current market. PRICE = exact limit price you type.</span></div>
+  <div class="field"><span class="fname">LIMIT BUY/SELL</span><span class="fdesc">Places a limit order at the calculated or typed price</span></div>
+  <div class="field"><span class="fname">MARKET BUY/SELL</span><span class="fdesc">Places a market order at the current bid/ask</span></div>
+  <div class="warn">⚠ Buy/Sell buttons have a 2-second cooldown to prevent accidental double-clicks. OFFSET mode now blocks marketable limits (e.g. offset = 0) to prevent silent market fills.</div>
 </div>
 
-<h2 id="actions">9. Flatten & Emergency BE</h2>
 <div class="card">
-  <div class="field"><span class="fname">FLATTEN ALL</span><span class="fdesc">Cancels ALL open orders, then closes ALL open positions with market orders. Use in emergencies.</span></div>
+  <h3>Conditional tab <span class="tag tag-orange">Updated</span></h3>
+  <p>Waits for a <strong>candle close</strong> beyond your trigger before placing the order — useful for confirming a breakout instead of getting wicked.</p>
+  <div class="field"><span class="fname">TYPE</span><span class="fdesc"><span class="tag tag-new">NEW</span> Limit or Market. Limit places at the trigger price; Market places at the close.</span></div>
+  <div class="field"><span class="fname">TIMEFRAME</span><span class="fdesc">Candle size to monitor (1 min through 4 hour)</span></div>
+  <div class="field"><span class="fname">TRIGGER</span><span class="fdesc">Price level the candle must close above (buy) or below (sell)</span></div>
+  <div class="field"><span class="fname">CANDLES</span><span class="fdesc">Consecutive closes required (1 = fire on first qualifying close)</span></div>
+  <div class="field"><span class="fname">EXPIRY</span><span class="fdesc">Seconds to keep the watcher armed before auto-disarm</span></div>
+  <div class="field"><span class="fname">ARM BUY / SELL</span><span class="fdesc">Start watching. Disarm anytime with the DISARM button.</span></div>
+</div>
+
+<div class="card">
+  <h3>Stop tab <span class="tag tag-new">NEW in v1.12</span></h3>
+  <p>Breakout entries that fire on <strong>intra-tick price touch</strong> (no candle close required) — industry-standard stop-order behaviour.</p>
+  <div class="field"><span class="fname">TYPE</span><span class="fdesc">Market or Limit. Market guarantees fill; Limit guarantees price.</span></div>
+  <div class="field"><span class="fname">TRIGGER</span><span class="fdesc">Price level. Buy stop must be ABOVE market; sell stop must be BELOW.</span></div>
+  <div class="field"><span class="fname">LIMIT OFFSET</span><span class="fdesc">(Stop-Limit only) Ticks past trigger where the limit sits. 0 = limit at trigger.</span></div>
+  <div class="field"><span class="fname">EXPIRY</span><span class="fdesc">Seconds to keep the trigger armed before auto-disarm</span></div>
+  <div class="field"><span class="fname">ARM BUY/SELL STOP</span><span class="fdesc">Start watching. Fires the entry the moment price crosses the trigger.</span></div>
+  <div class="tip">💡 Slippage from trigger to fill is logged automatically (see the log panel).</div>
+</div>
+
+<h2 id="alerts">9. Critical Alerts <span class="tag tag-new">NEW in v1.12</span></h2>
+<div class="card">
+  <p>For safety-critical failures — such as the SL→BE move not going through, or the initial SL being rejected by the exchange — TradePilot fires three alerts at once:</p>
+  <ul style="color:#B0B0BC;font-size:13px;margin-left:22px;">
+    <li><strong>Modal popup</strong> on top of all other windows until dismissed</li>
+    <li><strong>System beep</strong></li>
+    <li><strong>Discord webhook ping</strong> (also forwarded to the dev team)</li>
+  </ul>
+  <p>Each operation retries automatically with exponential backoff (200ms → 2s) before an alert fires. If the initial SL placement fails after retries, TradePilot also <strong>emergency-closes</strong> the position at market so you're never left unprotected.</p>
+  <div class="warn">⚠ Alerts are intentionally loud. If you ever see one mid-trade, check your position immediately.</div>
+</div>
+
+<h2 id="actions">10. Flatten &amp; Emergency BE</h2>
+<div class="card">
+  <div class="field"><span class="fname">FLATTEN ALL</span><span class="fdesc"><span class="tag tag-orange">Faster in v1.12</span> Cancels orders and closes positions <strong>in parallel</strong> — typical close time ~300ms instead of 2-3 seconds.</span></div>
   <div class="field"><span class="fname">⚡ EMERGENCY BE</span><span class="fdesc">Moves ALL active stop losses to breakeven immediately, regardless of how many TPs have filled.</span></div>
-  <div class="warn">⚠ FLATTEN ALL is irreversible — it closes everything. A confirmation dialog + 5-second cooldown prevents accidental clicks.</div>
+  <div class="warn">⚠ FLATTEN ALL is irreversible — it closes everything. A 5-second cooldown prevents accidental double-clicks.</div>
 </div>
 
-<h2 id="header">10. Header Controls</h2>
+<h2 id="header">11. Header Controls</h2>
 <div class="card">
   <div class="field"><span class="fname">● Status Dot</span><span class="fdesc">Green = healthy (&lt;300ms latency). Yellow = slow (300-2000ms) or rate limited. Red = very slow (&gt;2000ms) or connection lost.</span></div>
   <div class="field"><span class="fname">ON / OFF</span><span class="fdesc">Enable or disable bracket automation. When OFF, no orders are placed or managed.</span></div>
@@ -169,16 +285,22 @@
   <div class="field"><span class="fname">ℹ Tooltips</span><span class="fdesc">Toggle hover tooltips on/off throughout the app.</span></div>
 </div>
 
-<h2 id="troubleshooting">11. Troubleshooting</h2>
+<h2 id="troubleshooting">12. Troubleshooting</h2>
 <div class="card">
   <h3>Connection Lost Banner</h3>
   <p>If the red "Connection lost" banner appears, TradePilot cannot reach the TopstepX API. It will automatically retry. If it persists for more than 30 seconds, restart TradePilot.</p>
 
   <h3>Status Dot Yellow</h3>
-  <p>This may indicate rate limiting. TradePilot automatically enters degraded mode to recover. Avoid placing rapid orders during this time.</p>
+  <p>This may indicate rate limiting. TradePilot automatically enters degraded mode and retries with backoff. Avoid placing rapid orders during this time.</p>
+
+  <h3>"Price not available" on OFFSET</h3>
+  <p>The TopstepX / ProjectX API occasionally fails to return a price quote. OFFSET mode needs a current price to calculate the limit. Wait a few seconds and retry, or switch to PRICE mode and type the limit directly.</p>
 
   <h3>Order Blocked</h3>
   <p>TradePilot blocks opposite-direction orders on the same contract (e.g. buying while a sell bracket is active). Close the existing bracket first.</p>
+
+  <h3>Critical Alert Popup Appeared</h3>
+  <p>One of your safety-critical operations failed after retries. Check the popup message — it tells you exactly which order and which contract. Verify your position on TopstepX immediately. The alert is also forwarded to the dev team via Discord.</p>
 
   <h3>Debug Log</h3>
   <p>Detailed logs are saved to <code>~/.tradepilot/tradepilot_debug.log</code>. Click the 🐛 button to send the last 100 lines to the dev team (credentials are automatically stripped).</p>
@@ -187,7 +309,7 @@
   <p>Your settings are stored in <code>~/.tradepilot/config.json</code>. This persists across updates. If you need a fresh start, delete the <code>~/.tradepilot/</code> folder.</p>
 </div>
 
-<h2 id="faq">12. Frequently Asked Questions</h2>
+<h2 id="faq">13. Frequently Asked Questions</h2>
 <div class="card" style="padding:4px 20px;">
   <div class="faq-item">
     <button class="faq-q">What platforms does TradePilot work with?<span class="arrow">+</span></button>
@@ -195,7 +317,7 @@
   </div>
   <div class="faq-item">
     <button class="faq-q">What operating system do I need?<span class="arrow">+</span></button>
-    <div class="faq-a"><p><strong>Windows 10 or 11</strong> is required. TradePilot is a native Windows desktop app. macOS and Linux are not currently supported.</p></div>
+    <div class="faq-a"><p><strong>Windows 10 or 11</strong> is currently supported. macOS and Linux builds are on the roadmap — the codebase has been refactored for cross-platform compatibility in v1.12, and Linux is the next release target.</p></div>
   </div>
   <div class="faq-item">
     <button class="faq-q">How do I get my TopstepX API key?<span class="arrow">+</span></button>
@@ -211,23 +333,55 @@
   </div>
   <div class="faq-item">
     <button class="faq-q">What happens if my internet drops mid-trade?<span class="arrow">+</span></button>
-    <div class="faq-a"><p>Your stop loss and take profit orders live on the TopstepX exchange — they don't depend on TradePilot staying connected. If your internet drops, your exits will execute normally. The trailing runner and SL step-ups after TP fills won't work during a disconnect, but your core protection remains.</p></div>
+    <div class="faq-a"><p>Your stop loss and take profit orders live on the TopstepX exchange — they don't depend on TradePilot staying connected. If your internet drops, your exits will execute normally. The trailing runner, SL step-ups after TP fills, and Trigger SL won't work during a disconnect, but your core protection remains.</p></div>
   </div>
   <div class="faq-item">
-    <button class="faq-q">What's the difference between Simple and Smart SL modes?<span class="arrow">+</span></button>
-    <div class="faq-a"><p><strong>Simple:</strong> After X take profits fill, your stop moves to breakeven (plus optional offset for fees). <strong>Smart:</strong> Same breakeven trigger, but then the stop keeps stepping up to the previous TP price each time a new TP fills — locking in more profit progressively.</p></div>
+    <button class="faq-q">What's the difference between Simple, Smart, and Trigger SL modes?<span class="arrow">+</span></button>
+    <div class="faq-a">
+      <p><strong>Simple:</strong> After X take profits fill, your stop moves to breakeven (plus optional offset for fees). Stays there.</p>
+      <p><strong>Smart:</strong> Same BE trigger, but the stop also steps up to the previous TP price each time a new TP fills — locking in more profit progressively.</p>
+      <p><strong>Trigger:</strong> SL moves based on <em>price distance</em> from entry instead of TP fills. Example: when price travels +36 ticks, SL moves to entry + 2 ticks. Optionally combine with Smart-style stepping after a chosen TP fills.</p>
+    </div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q">What's the difference between Conditional and Stop orders?<span class="arrow">+</span></button>
+    <div class="faq-a">
+      <p><strong>Stop order</strong> fires the moment price <em>touches</em> your trigger — intra-tick. This is the industry-standard behaviour used by Topstep, NinjaTrader, IB, and CME natively.</p>
+      <p><strong>Conditional order</strong> fires only after a candle <em>closes</em> beyond your trigger. This is an anti-wick feature for traders who want to avoid getting stopped in by a fast wick that immediately reverses.</p>
+      <p>Both support Market and Limit variants and attach a full bracket (SL + TPs) on fill.</p>
+    </div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q">Why does the limit order sometimes fill at market?<span class="arrow">+</span></button>
+    <div class="faq-a"><p>This was a v1.11 bug — fixed in v1.12. OFFSET mode used to use a stale cached price, and the calculated limit could drift onto the wrong side of the market. v1.12 now uses a fresh price (max 1.5s old) and re-validates before submitting. If your offset is too small (limit would be marketable), you'll see a popup blocking the order instead.</p></div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q">What is slippage logging?<span class="arrow">+</span></button>
+    <div class="faq-a"><p>When a Stop or Conditional entry fires, TradePilot logs the difference between your trigger price and the actual fill — like <code>+10.0 ticks (worse)</code>. Useful for measuring market quality over time and comparing fills across sessions. Look for <code>SLIPPAGE [...]</code> lines in the log panel.</p></div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q">What is a critical alert?<span class="arrow">+</span></button>
+    <div class="faq-a"><p>A safety-critical operation (like the SL→BE move) failed even after automatic retries. You get a modal popup, a system beep, and a Discord webhook ping. Check your position on TopstepX immediately — it may not be protected at the level you expected.</p></div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q">Why is Flatten All so much faster now?<span class="arrow">+</span></button>
+    <div class="faq-a"><p>v1.12 fires the market close and order cancels <em>in parallel</em> instead of sequentially. Previously Flatten All took 2-3 seconds while price moved against you. Now the position usually closes within ~300ms of clicking.</p></div>
   </div>
   <div class="faq-item">
     <button class="faq-q">Can I trade multiple instruments at the same time?<span class="arrow">+</span></button>
-    <div class="faq-a"><p>You select one instrument at a time. Existing brackets on a previous instrument continue to be managed if you switch. For actively trading two instruments simultaneously, run two instances of TradePilot.</p></div>
+    <div class="faq-a"><p>You select one instrument at a time in the UI. Existing brackets on a previous instrument continue to be managed if you switch. For actively trading two instruments simultaneously, run two instances of TradePilot.</p></div>
   </div>
   <div class="faq-item">
     <button class="faq-q">What does FLATTEN ALL do?<span class="arrow">+</span></button>
-    <div class="faq-a"><p>It cancels every open order on your account and closes all open positions with market orders. It asks for confirmation first and has a 5-second cooldown to prevent accidental double-clicks.</p></div>
+    <div class="faq-a"><p>It cancels every open order on your account and closes all open positions with market orders. v1.12 runs the close and cancels in parallel — usually under 300ms. There's a 5-second cooldown to prevent accidental double-clicks.</p></div>
   </div>
   <div class="faq-item">
     <button class="faq-q">What happens if the exchange rejects my stop loss?<span class="arrow">+</span></button>
-    <div class="faq-a"><p>If the exchange blocks the stop loss (e.g. velocity controls), TradePilot immediately executes an emergency market close to flatten your position. You won't be left unprotected.</p></div>
+    <div class="faq-a"><p>TradePilot retries up to 5 times with exponential backoff. If the SL still can't be placed, it immediately executes an emergency market close to flatten your position AND fires a critical alert. You won't be left unprotected.</p></div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q">Can I add more than 6 take profits?<span class="arrow">+</span></button>
+    <div class="faq-a"><p>Yes. The main UI shows the first 6 TP levels in two columns. Clicking + when 6 TPs are present opens the <strong>Advanced TP Setup</strong> dialog where you can add as many additional levels as you need. They save and load with the preset just like the main 6.</p></div>
   </div>
   <div class="faq-item">
     <button class="faq-q">Is my API key stored securely?<span class="arrow">+</span></button>
@@ -258,7 +412,7 @@
 </div>
 
 <div class="footer">
-  TradePilot v1.11 — Bracket Automation for TopstepX<br>
+  TradePilot v1.12 — Bracket Automation for TopstepX<br>
   &copy; 2026 TradePilot. All rights reserved.
 </div>
 
